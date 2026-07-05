@@ -33,13 +33,6 @@ flavor = st.selectbox(
     ["Vanilla", "Mango", "Mint"]
 )
 
-st.subheader("Try your luck")
-if st.button("Click me!"):
-    with st.spinner("Rolling the dice..."):
-        time.sleep(1)
-    number = np.random.randint(1, 7)
-    st.balloons()
-    st.write(f"You rolled a **{number}**!")
 
 if "df" not in st.session_state:
     st.session_state.df = pd.DataFrame(
