@@ -8,10 +8,6 @@ st.set_page_config(
 
 st.title("Hello Streamlit")
 
-info_text = "If you're reading this text, your app is live!"
-st.write(info_text)
-st.code(info_text)
-
 st.divider()
 
 st.subheader("What is your name?")
