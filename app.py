@@ -27,15 +27,13 @@ flavor = st.selectbox(
 if os.path.exists("data.csv"):
     df = pd.read_csv("data.csv")
 else:
-    df = pd.DataFrame(columns=["Name", "Age", "Agree", "Flavor"])
+    df = pd.DataFrame(columns=["Name", "Age"])
 
 if st.button("Submit"):
     if name.strip():
         new_row = pd.DataFrame([{
             "Name": name,
             "Age": age,
-            "Agree": agree,
-            "Flavor": flavor
         }])
 
         df = pd.concat([df, new_row], ignore_index=True)
