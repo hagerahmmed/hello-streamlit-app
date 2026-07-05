@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 
 st.set_page_config(
     page_title="Hello Streamlit",
@@ -13,14 +14,8 @@ st.divider()
 st.subheader("What is your name?")
 name = st.text_input("Enter your name here:")
 
-if name:
-    st.success(f"Nice to meet you, {name}! Welcome to your Streamlit app.")
-
-st.divider()
-
 st.subheader("How old are you?")
 age = st.slider("Select your age:", min_value=1, max_value=100, value=25)
-st.write(f"You are **{age}** years old.")
 
 agree = st.checkbox("I accept the terms")
 
@@ -29,25 +24,25 @@ flavor = st.selectbox(
     ["Vanilla", "Mango", "Mint"]
 )
 
-
-if "df" not in st.session_state:
-    st.session_state.df = pd.DataFrame(
-        columns=["Name", "Age", "Agree", "Flavor"]
-    )
+if os.path.exists("data.csv"):
+    df = pd.read_csv("data.csv")
+else:
+    df = pd.DataFrame(columns=["Name", "Age", "Agree", "Flavor"])
 
 if st.button("Submit"):
-    new_row = pd.DataFrame([{
-        "Name": name,
-        "Age": age,
-        "Agree": agree,
-        "Flavor": flavor
-    }])
+    if name.strip():
+        new_row = pd.DataFrame([{
+            "Name": name,
+            "Age": age,
+            "Agree": agree,
+            "Flavor": flavor
+        }])
 
-    st.session_state.df = pd.concat(
-        [st.session_state.df, new_row],
-        ignore_index=True
-    )
+        df = pd.concat([df, new_row], ignore_index=True)
+        df.to_csv("data.csv", index=False)
 
-    st.success(f"Saved! {len(st.session_state.df)} total")
+        st.success(f"Saved! {len(df)} total")
+    else:
+        st.warning("Please enter your name.")
 
-st.dataframe(st.session_state.df, use_container_width=True)
+st.dataframe(df, use_container_width=True)
