@@ -1,8 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import time
-from datetime import datetime
 
 st.set_page_config(
     page_title="Hello Streamlit",
@@ -43,9 +40,6 @@ if st.button("Click me!"):
     number = np.random.randint(1, 7)
     st.balloons()
     st.write(f"You rolled a **{number}**!")
-
-st.subheader("Current date and time")
-st.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 if "df" not in st.session_state:
     st.session_state.df = pd.DataFrame(
