@@ -66,5 +66,3 @@ df = pd.DataFrame({
     "City": ["Cairo", "Riyadh", "Dubai", "Amman"]
 })
 st.dataframe(df, use_container_width=True)
-with st.sidebar:
-  
